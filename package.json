@@ -1,0 +1,37 @@
+{
+  "name": "min-rpc",
+  "version": "0.0.0",
+  "description": "Minimal rpc server and client using http. <3bk gzipped in the browser.",
+  "license": "MIT",
+  "repository": "ajoslin/min-rpc",
+  "author": {
+    "name": "Andrew Joslin",
+    "email": "andrewtjoslin@gmail.com",
+    "url": "ajoslin.com"
+  },
+  "scripts": {
+    "test": "standard && tape test"
+  },
+  "keywords": [
+    "rpc",
+    "http",
+    "server",
+    "client"
+  ],
+  "devDependencies": {
+    "find-free-port": "~1.0.2",
+    "global": "~4.3.1",
+    "proxyquire": "~1.7.11",
+    "request": "~2.79.0",
+    "standard": "^7.0.0",
+    "tape": "^4.0.0"
+  },
+  "dependencies": {
+    "body-parser": "~1.16.1",
+    "express": "~4.14.1",
+    "one-time": "0.0.4",
+    "url-join": "~1.1.0",
+    "xhr": "~2.3.3",
+    "xtend": "~4.0.1"
+  }
+}
