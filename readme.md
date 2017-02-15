@@ -69,6 +69,7 @@ api.person.shout('hey', function (error, data) {
 ## Roadmap
 
 - [Permissions](https://github.com/ajoslin/min-rpc/issues/1)
+- [EventSource addon](https://github.com/ajoslin/min-rpc/issues/2)
 - Better tests
 
 ## API
