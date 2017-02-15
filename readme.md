@@ -68,7 +68,8 @@ api.person.shout('hey', function (error, data) {
 
 ## Roadmap
 
-- Coming soon: [Permissions](https://github.com/ajoslin/min-rpc/issues/1)
+- [Permissions](https://github.com/ajoslin/min-rpc/issues/1)
+- Better tests
 
 ## API
 
