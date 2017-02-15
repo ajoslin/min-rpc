@@ -22,7 +22,7 @@ module.exports = {
 
 **person/service.js**
 ```js
-var manifest = require('./manifest.json')
+var manifest = require('./manifes')
 
 module.exports = {
   manifest: manifest,
@@ -53,7 +53,7 @@ app.listen(3000)
 ```js
 var rpcClient = require('min-rpc/client')
 var services = [
-  require('./person/manifest.json')
+  require('./person/manifest')
 ]
 
 var api = rpcClient(services, {
