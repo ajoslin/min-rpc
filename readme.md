@@ -2,7 +2,7 @@
 
 > Minimal rpc server and client using http. <3kb in the browser.
 
-Inspiration: [vas](https://github.com/ahdinosaur/vas), but simpler.
+Inspired by [vas](https://github.com/ahdinosaur/vas), but with as few features as possible.
 
 ## Install
 
