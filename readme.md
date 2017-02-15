@@ -50,7 +50,7 @@ app.listen(3000)
 ```
 
 **browser.js**
-```jsos
+```js
 var rpcClient = require('min-rpc/client')
 var services = [
   require('./person/manifest.json')
