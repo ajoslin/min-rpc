@@ -2,7 +2,6 @@
 
 var xhr = require('xhr')
 var extend = require('xtend')
-var join = require('url-join')
 var createError = require('./common/create-error')
 var getMethodUrl = require('./common/get-method-url')
 var validateManifest = require('./common/validate-manifest')
@@ -17,6 +16,10 @@ module.exports = function createClient (manifests, options) {
   var baseUrl = options.baseUrl || '/'
   var transformRequest = options.transformRequest || identity
   var api = {}
+
+  if (baseUrl.charAt(baseUrl.length - 1) === '/') {
+    baseUrl = baseUrl.substring(0, baseUrl.length - 1)
+  }
 
   manifests.forEach(function (manifest, index) {
     validateManifest(manifest, index)
@@ -70,7 +73,7 @@ module.exports = function createClient (manifests, options) {
 
     options = transformRequest(options)
 
-    xhr(join(baseUrl, path), options, function handleResponse (error, resp, body) {
+    xhr(baseUrl + path, options, function handleResponse (error, resp, body) {
       var success = !error && String(resp.statusCode).charAt(0) === '2'
 
       if (success) {
