@@ -13,7 +13,7 @@ $ npm install --save min-rpc
 ## Usage
 
 **person/manifest.json**
-```json
+```js
 {
   "path": ['person'],
   "methods": ['shout']
