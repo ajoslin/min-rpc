@@ -4,8 +4,6 @@
 
 Inspiration: [vas](https://github.com/ahdinosaur/vas), but simpler.
 
-*Coming soon: permissions*
-
 ## Install
 
 ```
@@ -67,6 +65,10 @@ api.person.shout('hey', function (error, data) {
   console.log(data) // => 'HEY!'
 })
 ```
+
+## Roadmap
+
+- Coming soon: [Permissions](https://github.com/ajoslin/min-rpc/issues/1)
 
 ## API
 
