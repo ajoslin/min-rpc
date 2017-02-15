@@ -2,12 +2,15 @@
 
 > Minimal rpc server and client using http. <3bk gzipped in the browser.
 
+Heavily inspired by [vas](https://github.com/ahdinosaur/vas).
+
+*Coming soon: permissions*
+
 ## Install
 
 ```
 $ npm install --save min-rpc
 ```
-
 
 ## Usage
 
