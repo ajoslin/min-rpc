@@ -1,6 +1,6 @@
 {
   "name": "min-rpc",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Minimal rpc server and client using http. <3bk gzipped in the browser.",
   "license": "MIT",
   "repository": "ajoslin/min-rpc",
