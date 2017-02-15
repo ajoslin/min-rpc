@@ -12,11 +12,11 @@ $ npm install --save min-rpc
 
 ## Usage
 
-**person/manifest.json**
+**person/manifest.js**
 ```js
-{
-  "path": 'person',
-  "methods": ['shout']
+module.exports = {
+  path: 'person',
+  methods: ['shout']
 }
 ```
 
