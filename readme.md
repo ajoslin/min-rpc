@@ -1,8 +1,8 @@
 # min-rpc [![Build Status](https://travis-ci.org/ajoslin/min-rpc.svg?branch=master)](https://travis-ci.org/ajoslin/min-rpc)
 
-> Minimal rpc server and client using http. <3bk gzipped in the browser.
+> Minimal rpc server and client using http. <3kb in the browser.
 
-Heavily inspired by [vas](https://github.com/ahdinosaur/vas).
+Inspiration: [vas](https://github.com/ahdinosaur/vas), but simpler.
 
 *Coming soon: permissions*
 
