@@ -22,7 +22,7 @@ module.exports = {
 
 **person/service.js**
 ```js
-var manifest = require('./manifes')
+var manifest = require('./manifest')
 
 module.exports = {
   manifest: manifest,
