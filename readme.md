@@ -15,7 +15,7 @@ $ npm install --save min-rpc
 **person/manifest.json**
 ```js
 {
-  "path": ['person'],
+  "path": 'person',
   "methods": ['shout']
 }
 ```
@@ -111,9 +111,9 @@ Returns an `apiClient`, which is an object built off of the structure of all pas
 
 ```js
 const apiClient = rpcClient([
-  {path: ['house', 'plumbing'], methods: ['turnOff', 'turnOn']},
-  {path: ['house', 'gas'], methods: ['change']},
-  {path: ['somethingElse'], methods: ['act']}
+  {path: 'house.plumbing', methods: ['turnOff', 'turnOn']},
+  {path: 'house.gas', methods: ['change']},
+  {path: 'somethingElse', methods: ['act']}
 ], myOptions)
 
 apiClient.house.plumbing.turnOff // => function
