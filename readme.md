@@ -12,23 +12,16 @@ $ npm install --save min-rpc
 
 ## Usage
 
-**person/manifest.js**
+**person/service.js**
 ```js
 module.exports = {
   path: 'person',
-  methods: ['shout']
-}
-```
-
-**person/service.js**
-```js
-var manifest = require('./manifest')
-
-module.exports = {
-  manifest: manifest,
   methods: {
     shout: function (phrase, callback) {
       callback(null, phrase.toUpperCase() + '!')
+    },
+    shoutUser: function (phrase, callback) {
+      callback(null, this.user.name + ': ' + phrase.toUpperCase() + '!')
     }
   }
 }
@@ -41,7 +34,14 @@ var services = [
   require('./person/service')
 ]
 
-var handler = rpcServer(services)
+var handler = rpcServer(services, {
+  getContext: function (req, res, callback) {
+    // ... Get the user from cookies or headers here.
+    callback(null, {
+      user: {name: 'Bob'}
+    })
+  }
+})
 
 var app = require('express')()
 app.use('/api', handler)
@@ -52,83 +52,74 @@ app.listen(3000)
 **browser.js**
 ```js
 var rpcClient = require('min-rpc/client')
-var services = [
-  require('./person/manifest')
-]
 
-var api = rpcClient(services, {
+var api = rpcClient({
   baseUrl: 'http://localhost:3000/api'
 })
 
-api.person.shout('hey', function (error, data) {
+api('person/shout', 'hey', function (error, data) {
   console.log(error) // => null
   console.log(data) // => 'HEY!'
+})
+
+api('person/shoutUser', 'hey', function (error, data) {
+  console.log(error) // => null
+  console.log(data) // => 'Bob: HEY!'
 })
 ```
 
 ## Roadmap
 
-- [Permissions](https://github.com/ajoslin/min-rpc/issues/1)
 - [EventSource addon](https://github.com/ajoslin/min-rpc/issues/2)
 - Better tests
 
 ## API
 
-#### `require('min-rpc/server')(services)` -> `requestHandler`
+### `require('min-rpc/server')(services, options)` -> `requestHandler`
 
-Returns an express router that you can mount in your app. Accepts requests from the api client.
+Returns an http request handler that you can mount in your app. Accepts requests from the api client.
 
 ##### services
 
-Each item in the `services` array must be of the following format:
-
-```
-service {
-  manifest: Object{
-    path: string,
-    methods: Array<string>
-  },
-  methods: Object{methodName: function}
-}
-```
-
-Example:
+Each item in the `services` array must have a string key `path` and an object `methods`. Example:
 
 ```js
 {
-  manifest: {
-    path: 'string',
-    methods: ['method1', 'method2']
-  },
+  path: 'my/service',
   methods: {
-    method1: (data, callback) => callback(null, 'result'),
-    method2: (data, callback) => callback(new Error('Nope!'))
+    method1: function (data, callback) { callback(null, 'result') },
+    method2: function (data, callback) { callback(new Error('Nope!')) }
   }
 }
 ```
 
-#### `require('min-rpc/client')(manifests, options)` -> `apiClient`
+##### options
 
-Returns an `apiClient`, which is an object built off of the structure of all passed in manifests, using `path` to build the object. Example:
+###### getContext(req, res, callback)
+
+Pass the `context` that will be passed as the first argument into all service methods.
+
+Call `callback` with `(error, context)`
+
+This is most often used to set the current user. Example:
 
 ```js
-const apiClient = rpcClient([
-  {path: 'house.plumbing', methods: ['turnOff', 'turnOn']},
-  {path: 'house.gas', methods: ['change']},
-  {path: 'somethingElse', methods: ['act']}
-], myOptions)
+var rpcServer = RpcServer(services, {
+  getContext: function (req, res, callback) {
+    db.getUser(req.session.userId, function (error, user) {
+      if (error) return callback(error)
 
-apiClient.house.plumbing.turnOff // => function
-apiClient.house.plumbing.turnOn // => function
-apiClient.house.gas.change // => function
-apiClient.somethingElse.act // => function
-```
+      // Now `this` of service methods is equal to `{user: user}`
+      callback(null, {user: user})
+    })
+  }
+})
+
+### `require('min-rpc/client')(options)` -> `apiClient`
+
+Returns an `apiClient` function, which can talk to the server given at `baseUrl`.
 
 The apiClient also exposes a `apiClient.request` function, which takes parameters (url, options, callback). Options are passed to [xhr](https://github.com/raynos/xhr). This function is used internally to perform all rpc calls.
-
-##### manifests
-
-An array of `{path, methods}` objects, which are used to build an rpcClient.
 
 ##### options
 
@@ -156,7 +147,6 @@ var api = rpcClient(services, {
   }
 })
 ```
-
 
 
 ## License
