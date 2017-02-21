@@ -97,11 +97,11 @@ Each item in the `services` array must have a string key `path` and an object `m
 
 ###### getContext(req, res, callback)
 
-Pass the `context` that will be passed as the first argument into all service methods.
+Set the `this` that will be used when calling all service methods. Use this for things like getting the current user and checking permissions in your service methods.
 
-Call `callback` with `(error, context)`
+Call `callback` with `(error, context)`. If `error` is given, the service method will never be called.
 
-This is most often used to set the current user. Example:
+**Note**: When using `options.getContext`, avoid arrow functions in your service methods. `this` matters.
 
 ```js
 var rpcServer = RpcServer(services, {
@@ -114,6 +114,7 @@ var rpcServer = RpcServer(services, {
     })
   }
 })
+```
 
 ### `require('min-rpc/client')(options)` -> `apiClient`
 
