@@ -71,7 +71,6 @@ api('person/shoutUser', 'hey', function (error, data) {
 ## Roadmap
 
 - [EventSource addon](https://github.com/ajoslin/min-rpc/issues/2)
-- Better tests
 
 ## API
 
